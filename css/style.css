@@ -307,44 +307,33 @@ figcaption {
 .story-spread .c-main { aspect-ratio: 16 / 10.5; }
 .story-side .img-frame { aspect-ratio: 16 / 5.06; }
 
-/* ---------- video ---------- */
-.video-shell { position: relative; margin-top: 2rem; background: var(--ink); }
-.video-shell video { width: 100%; aspect-ratio: 16 / 9; }
-.video-cover {
-  position: absolute; inset: 0; z-index: 3;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
-  cursor: pointer; overflow: hidden;
-  transition: opacity 0.6s var(--ease);
+/* ---------- video preview (external link) ---------- */
+.video-preview {
+  display: block; position: relative; margin-top: 2rem;
+  aspect-ratio: 16 / 9; overflow: hidden;
+  border: 1px solid var(--rule); background: var(--ink);
 }
-.video-cover.hidden { opacity: 0; pointer-events: none; }
-.video-cover .vc-bg { position: absolute; inset: 0; }
-.video-cover .vc-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
-.video-cover .vc-tint { position: absolute; inset: 0; background: rgba(28, 26, 22, 0.35); }
-.video-cover.no-img .vc-bg { background: linear-gradient(135deg, var(--sage) 0%, var(--lavender) 100%); opacity: 0.8; }
+.vp-bg { position: absolute; inset: 0; }
+.vp-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.88; transition: transform 0.9s var(--ease); }
+.vp-tint { position: absolute; inset: 0; background: rgba(28, 26, 22, 0.32); transition: background 0.4s var(--ease); }
+.video-preview:hover .vp-bg img { transform: scale(1.035); }
+.video-preview:hover .vp-tint { background: rgba(28, 26, 22, 0.18); }
 .play-btn {
-  position: relative; z-index: 2;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 2;
   width: 72px; height: 72px; border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.85);
   display: grid; place-items: center;
   transition: transform 0.4s var(--ease), background 0.4s var(--ease);
 }
 .play-btn svg { width: 20px; height: 20px; fill: #fff; margin-left: 3px; }
-.video-cover:hover .play-btn { transform: scale(1.08); background: rgba(255, 255, 255, 0.14); }
-.video-caption { position: relative; z-index: 2; color: #fff; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; }
-
-/* link card (YouTube) */
-.link-card {
-  display: grid; grid-template-columns: 1fr 1.4fr; border: 1px solid var(--rule);
-  margin-top: 2rem; overflow: hidden; background: var(--paper-deep);
-  transition: border-color 0.4s var(--ease);
+.video-preview:hover .play-btn { transform: translate(-50%, -50%) scale(1.08); background: rgba(255, 255, 255, 0.14); }
+.vp-info {
+  position: absolute; left: clamp(1.2rem, 3vw, 2rem); bottom: clamp(1.1rem, 2.5vw, 1.8rem);
+  z-index: 2; color: #fff; display: flex; flex-direction: column; gap: 0.3rem;
 }
-.link-card:hover { border-color: var(--ink); }
-.link-card .lc-thumb { position: relative; min-height: 220px; overflow: hidden; }
-.link-card .lc-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease); }
-.link-card:hover .lc-thumb img { transform: scale(1.04); }
-.link-card .lc-body { padding: clamp(1.6rem, 3vw, 2.6rem); display: flex; flex-direction: column; justify-content: space-between; gap: 1.4rem; }
-.link-card .lc-arrow { font-family: var(--serif); font-size: 1.6rem; transition: transform 0.4s var(--ease); }
-.link-card:hover .lc-arrow { transform: translateX(8px); }
+.vp-platform { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.75; }
+.vp-title { font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.6rem); line-height: 1.25; }
 
 /* ---------- about ---------- */
 .about-grid { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(2.5rem, 6vw, 6rem); }
@@ -422,8 +411,6 @@ body.lb-open { overflow: hidden; }
   .method:nth-child(-n+2) { border-top: none; }
   .story-spread { grid-template-columns: 1fr; }
   .story-side .img-frame { aspect-ratio: 16 / 9; }
-  .link-card { grid-template-columns: 1fr; }
-  .link-card .lc-thumb { min-height: 180px; }
 }
 
 @media (max-width: 768px) {

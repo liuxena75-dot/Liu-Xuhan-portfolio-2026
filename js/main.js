@@ -63,26 +63,6 @@
     revealEls.forEach(function (el) { el.classList.add("visible"); });
   }
 
-  /* ---------- lazy video covers: load & play only on click ---------- */
-  document.querySelectorAll(".video-shell").forEach(function (shell) {
-    var cover = shell.querySelector(".video-cover");
-    var video = shell.querySelector("video");
-    if (!cover || !video) return;
-    // if the local video file is unavailable (e.g. not published online), fall back to YouTube
-    video.addEventListener("error", function () {
-      var yt = video.getAttribute("data-yt");
-      if (yt) window.open(yt, "_blank", "noopener,noreferrer");
-    });
-    cover.addEventListener("click", function () {
-      if (!video.getAttribute("src") && video.getAttribute("data-src")) {
-        video.setAttribute("src", video.getAttribute("data-src"));
-      }
-      video.controls = true;
-      video.play();
-      cover.classList.add("hidden");
-    });
-  });
-
   /* ---------- image lightbox (data-zoom) ---------- */
   var lightbox = document.getElementById("lightbox");
   var lightboxImg = document.getElementById("lightbox-img");
